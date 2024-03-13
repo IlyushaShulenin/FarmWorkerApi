@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Dto рабочего для получения сообщения
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

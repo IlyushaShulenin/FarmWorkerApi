@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import ru.shulenin.farmworkerapi.datasource.entity.Product;
 
 
+/**
+ * Dto продукта для чтения
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

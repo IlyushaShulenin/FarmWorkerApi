@@ -7,16 +7,14 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
- * Dto отчета для отправки сообщения
+ * Dto плана для чтения
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ReportSendDto {
-    private Long id;
-    private Long workerId;
-    private Long productId;
+@NoArgsConstructor
+public class PlanReadDto extends AbstractDto {
+    private WorkerReadDto worker;
+    private ProductReadDto product;
     private Float amount;
     private LocalDate date;
-    private Boolean planIsCompleted;
 }

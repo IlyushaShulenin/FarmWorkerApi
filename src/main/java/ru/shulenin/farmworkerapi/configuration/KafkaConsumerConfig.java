@@ -19,6 +19,9 @@ import ru.shulenin.farmworkerapi.dto.WorkerSaveEditDto;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Конфигурация консьюмера для Kafka
+ */
 @Configuration
 @PropertySource("classpath:kafka.properties")
 public class KafkaConsumerConfig {

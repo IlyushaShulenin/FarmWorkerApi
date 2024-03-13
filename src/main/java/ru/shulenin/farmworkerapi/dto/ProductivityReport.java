@@ -1,21 +1,19 @@
 package ru.shulenin.farmworkerapi.dto;
 
+import jakarta.annotation.security.DenyAll;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 /**
- * Dto отчета для чтения
+ * Dto выработки рабочего
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportReadDto extends AbstractDto {
+public class ProductivityReport {
     private WorkerReadDto worker;
     private ProductReadDto product;
-    private Float amount;
-    private LocalDate date;
-    private Boolean planIsCompleted;
+    private Double reportAmount;
+    private Double planAmount;
 }

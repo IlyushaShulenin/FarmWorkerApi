@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.shulenin.farmworkerapi.datasource.entity.Product;
 
+/**
+ * Dto продукта для получения собщения
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

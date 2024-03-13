@@ -5,14 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Сущность рабочего
+ */
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Worker {
+public class Worker implements Serializable {
+    @Serial
+    @Transient
+    private static final long serialVersionUID = 3L;
+
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

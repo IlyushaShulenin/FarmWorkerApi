@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * Dto плана для получения сообщения
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

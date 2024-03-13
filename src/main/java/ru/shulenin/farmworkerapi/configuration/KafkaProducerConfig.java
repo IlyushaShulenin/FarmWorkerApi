@@ -10,8 +10,10 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Конфигурация продюсера для Kafka
+ */
 @Configuration
-//@PropertySource("classpath:kafka.properties")
 public class KafkaProducerConfig {
     @Value("${kafka.server}")
     private String kafkaServer;

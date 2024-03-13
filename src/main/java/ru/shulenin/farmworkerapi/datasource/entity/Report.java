@@ -5,13 +5,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * Сущность отчета
+ */
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Report {
+public class Report implements Serializable {
+    @Serial
+    @Transient
+    private static final long serialVersionUID = 3L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

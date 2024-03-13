@@ -1,7 +1,16 @@
 package ru.shulenin.farmworkerapi.datasource.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import ru.shulenin.farmworkerapi.datasource.entity.Score;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface ScoreRepository extends JpaRepository<Score, Long> {
+    @Query(
+            nativeQuery = true,
+            value = "SELECT * FROM score WHERE worker_id = :id"
+    )
+    public List<Score> findAllByWorkerId(Long id);
 }

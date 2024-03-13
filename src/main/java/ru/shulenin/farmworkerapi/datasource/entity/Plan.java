@@ -5,15 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * Сущность плана работ
+ */
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Plan {
+public class Plan implements Serializable {
+    @Serial
+    @Transient
+    private static final long serialVersionUID = 2L;
+
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

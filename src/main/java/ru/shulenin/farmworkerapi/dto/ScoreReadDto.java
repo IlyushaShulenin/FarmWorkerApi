@@ -7,16 +7,13 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
- * Dto отчета для отправки сообщения
+ * Dto баллов для чтения
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportSendDto {
-    private Long id;
-    private Long workerId;
-    private Long productId;
-    private Float amount;
+public class ScoreReadDto {
+    private WorkerReadDto workerReadDto;
+    private Integer score;
     private LocalDate date;
-    private Boolean planIsCompleted;
 }
