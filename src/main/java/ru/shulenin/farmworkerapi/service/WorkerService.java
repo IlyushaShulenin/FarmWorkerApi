@@ -2,12 +2,15 @@ package ru.shulenin.farmworkerapi.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.shulenin.farmworkerapi.datasource.entity.Worker;
+import ru.shulenin.farmworkerapi.datasource.repository.ScoreRepository;
 import ru.shulenin.farmworkerapi.datasource.repository.WorkerRepository;
 import ru.shulenin.farmworkerapi.dto.WorkerReceiveDto;
-import ru.shulenin.farmworkerapi.dto.WorkerSaveEditDto;
 import ru.shulenin.farmworkerapi.mapper.WorkerMapper;
 
 /**
@@ -17,8 +20,9 @@ import ru.shulenin.farmworkerapi.mapper.WorkerMapper;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
-public class WorkerService {
+public class WorkerService implements UserDetailsService {
     private final WorkerRepository workerRepository;
+    private final ScoreRepository scoreRepository;
 
     private final WorkerMapper workerMapper = WorkerMapper.INSTANCE;
 
@@ -39,7 +43,13 @@ public class WorkerService {
      */
     @Transactional
     public void delete(Long id) {
-        workerRepository.deleteById(id);
+        scoreRepository.deleteAllByWorkerId(id);
+        workerRepository.retireWorker(id);
         log.info(String.format("WorkerService.delete(): entity with id= %d deleted", id));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return workerRepository.findByEmail(username);
     }
 }

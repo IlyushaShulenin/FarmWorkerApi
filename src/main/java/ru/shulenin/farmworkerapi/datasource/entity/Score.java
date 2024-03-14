@@ -1,13 +1,13 @@
 package ru.shulenin.farmworkerapi.datasource.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.Instant;
 import java.time.LocalDate;
 
 /**
@@ -17,11 +17,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Score implements Serializable {
-    @Serial
-    @Transient
-    private static final long serialVersionUID = 1L;
-
+public class Score {
     @Id
     private Long id;
 

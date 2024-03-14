@@ -2,6 +2,7 @@ package ru.shulenin.farmworkerapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.shulenin.farmworkerapi.dto.PlanReadDto;
 import ru.shulenin.farmworkerapi.dto.ProductivityReport;
@@ -21,38 +22,38 @@ public class PersonalInfoRestController {
 
     /**
      * Баллы рабочего
-     * @param id id рабочего
      * @return список боллов рабочего
      */
-    @GetMapping("/score/{id}")
+    @GetMapping("/score")
     @ResponseStatus(HttpStatus.OK)
-    public List<ScoreReadDto> getScore(@PathVariable("id") Long id) {
-        return personalInfoService.getScore(id);
+    public List<ScoreReadDto> getScore(Authentication authentication) {
+        var username = authentication.getName();
+        return personalInfoService.getScore(username);
     }
 
     /**
      * Планы выработки для рабочего
-     * @param id id рабочего
      * @return список баллов рабочего
      */
-    @GetMapping("/plan/{id}")
+    @GetMapping("/plan")
     @ResponseStatus(HttpStatus.OK)
-    public List<PlanReadDto> getPlans(@PathVariable("id") Long id) {
-        return personalInfoService.getPlans(id);
+    public List<PlanReadDto> getPlans(Authentication authentication) {
+        var username = authentication.getName();
+        return personalInfoService.getPlans(username);
     }
 
     /**
      * Результаты выработки рабочего(данные об объеме проведенной работы в сравнении с планами)
-     * @param id id рабочего
+     * @param month месяц
      * @return результаты выработки
      */
-    @GetMapping("/productivity/{id}")
+    @GetMapping("/productivity")
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductivityReport> getProductivity(@PathVariable("id") Long id,
+    public List<ProductivityReport> getProductivity(Authentication authentication,
                                                     @RequestParam(value = "month", required = false) Integer month) {
+        var username = authentication.getName();
         if (month == null)
-            return personalInfoService.getProductivityForWorker(id);
-
-        return personalInfoService.getProductivityForWorkerByMonth(id, month);
+            return personalInfoService.getProductivityForWorker(username);
+        return personalInfoService.getProductivityForWorkerByMonth(username, month);
     }
 }

@@ -36,7 +36,7 @@ public class ProductService {
      */
     @Transactional
     public void delete(Long id) {
-        productRepository.deleteById(id);
+        productRepository.cancelProduct(id);
         log.info(String.format("WorkerService.delete(): entity with id= %d deleted", id));
     }
 }

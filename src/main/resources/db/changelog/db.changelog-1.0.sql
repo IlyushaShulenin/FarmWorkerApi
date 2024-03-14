@@ -2,57 +2,47 @@
 
 --changeset ilya_shulenin:1
 CREATE TABLE worker(
-                       id BIGSERIAL,
-                       email VARCHAR(128) UNIQUE,
-                       password VARCHAR(64),
-                       name VARCHAR(64),
-                       surname VARCHAR(64),
+    id BIGSERIAL,
+    email VARCHAR(128) UNIQUE,
+    password VARCHAR(128) default '{noop}123',
+    name VARCHAR(64),
+    surname VARCHAR(64),
+    status VARCHAR(32),
+    is_working BOOLEAN DEFAULT true,
 
-                       PRIMARY KEY (id)
+    PRIMARY KEY (id)
 );
 
 --changeset ilya_shulenin:2
 CREATE TABLE product(
-                        id BIGSERIAL,
-                        name VARCHAR(128) UNIQUE,
-                        measure VARCHAR(32),
+    id BIGSERIAL,
+    name VARCHAR(128) UNIQUE,
+    measure VARCHAR(32),
+    is_produced BOOLEAN DEFAULT true,
 
-                        PRIMARY KEY (id)
+    PRIMARY KEY (id)
 );
 
 --changeset ilya_shulenin:3
 CREATE TABLE plan(
-                     id BIGSERIAL,
-                     worker_id BIGINT,
-                     product_id BIGINT,
-                     amount FLOAT,
-                     date DATE,
+    id BIGSERIAL,
+    worker_id BIGINT,
+    product_id BIGINT,
+    amount FLOAT,
+    date DATE,
 
-                     PRIMARY KEY (id),
-                     FOREIGN KEY (worker_id) REFERENCES worker (id),
-                     FOREIGN KEY (product_id) REFERENCES product (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (worker_id) REFERENCES worker (id),
+    FOREIGN KEY (product_id) REFERENCES product (id)
 );
 
 ----changeset ilya_shulenin:4
 CREATE TABLE score(
-                      id BIGSERIAL,
-                      worker_id BIGINT,
-                      score SMALLINT,
-                      date DATE,
+    id BIGSERIAL,
+    worker_id BIGINT,
+    score SMALLINT,
+    plan_is_completed BOOLEAN,
+    date DATE,
 
-                      PRIMARY KEY (id)
-);
-
-----changeset ilya_shulenin:5
-CREATE TABLE report(
-                     id BIGSERIAL,
-                     worker_id BIGINT,
-                     product_id BIGINT,
-                     amount FLOAT,
-                     date DATE,
-                     plan_is_completed BOOLEAN,
-
-                     PRIMARY KEY (id),
-                     FOREIGN KEY (worker_id) REFERENCES worker (id),
-                     FOREIGN KEY (product_id) REFERENCES product (id)
+    PRIMARY KEY (id)
 );

@@ -1,5 +1,6 @@
 package ru.shulenin.farmworkerapi.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ReportRestController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ReportReadDto createReport(@RequestBody ReportSaveDto reportDto) {
+    public ReportReadDto createReport(@RequestBody @Valid ReportSaveDto reportDto) {
         return reportService.createReport(reportDto);
     }
 }

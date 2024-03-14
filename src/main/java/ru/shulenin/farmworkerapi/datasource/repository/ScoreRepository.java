@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import ru.shulenin.farmworkerapi.datasource.entity.Score;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Query(
@@ -13,4 +12,8 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
             value = "SELECT * FROM score WHERE worker_id = :id"
     )
     public List<Score> findAllByWorkerId(Long id);
+
+    public void deleteAllByWorkerId(Long workerId);
+
+    public List<Score> findAllByWorkerEmail(String email);
 }

@@ -2,6 +2,7 @@ package ru.shulenin.farmworkerapi.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.transaction.annotation.Transactional;
 import ru.shulenin.farmworkerapi.datasource.entity.Plan;
 import ru.shulenin.farmworkerapi.datasource.repository.ProductRepository;
 import ru.shulenin.farmworkerapi.datasource.repository.WorkerRepository;
@@ -23,6 +24,7 @@ public interface PlanMapper {
      * @param productRepository репозиторий для рабочих
      * @return сущность
      */
+    @Transactional(readOnly = true)
     default public Plan planReceiveDtoToPlan(PlanReceiveDto plan,
                                              WorkerRepository workerRepository,
                                              ProductRepository productRepository) {

@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Dto с JWT токеном
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductivityReport {
-    protected String worker;
-    protected String product;
-    protected Double reportAmount;
-    protected Double planAmount;
+public class JwtAuthenticationResponse {
+    private String token;
 }
