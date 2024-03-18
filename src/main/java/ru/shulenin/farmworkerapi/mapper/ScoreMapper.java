@@ -1,9 +1,13 @@
 package ru.shulenin.farmworkerapi.mapper;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import ru.shulenin.farmworkerapi.datasource.entity.Score;
+import ru.shulenin.farmworkerapi.datasource.entity.Worker;
+import ru.shulenin.farmworkerapi.datasource.repository.WorkerRepository;
 import ru.shulenin.farmworkerapi.dto.ScoreReadDto;
+import ru.shulenin.farmworkerapi.dto.ScoreReceiveDto;
 
 /**
  * Маппер для баллов
@@ -25,6 +29,17 @@ public interface ScoreMapper {
                 worker,
                 score.getScore(),
                 score.getDate()
+        );
+    }
+
+    default public Score scoreReceiveDtoToScore(ScoreReceiveDto scoreDto, WorkerRepository workerRepository) {
+        var worker = workerRepository.getReferenceById(scoreDto.getWorkerId());
+
+        return new Score(
+                scoreDto.getId(),
+                worker,
+                scoreDto.getScore(),
+                scoreDto.getDate()
         );
     }
 

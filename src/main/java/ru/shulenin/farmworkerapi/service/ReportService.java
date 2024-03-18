@@ -18,8 +18,6 @@ import ru.shulenin.farmworkerapi.mapper.ProductMapper;
 import ru.shulenin.farmworkerapi.mapper.ReportMapper;
 import ru.shulenin.farmworkerapi.mapper.WorkerMapper;
 
-import java.util.Optional;
-
 /**
  * Сервис для работы с отчетами
  */
@@ -67,12 +65,11 @@ public class ReportService {
         Report report = reportMapper.reportSaveDtoToReport(reportDto, workerRepository,
                 productRepository);
 
-        planRepository.findByWorkerIdAndProductId(workerId, productId)
-                .map(pln -> {
-                    Boolean planIsCompleted = report.getAmount() >= pln.getAmount();
-                    report.setPlanIsCompleted(planIsCompleted);
-                    return true;
-                });
+        var planIsCompleted = planRepository.findByWorkerIdAndProductId(workerId, productId)
+                .map(pln -> report.getAmount() >= pln.getAmount())
+                .orElse(false);
+
+        report.setPlanIsCompleted(planIsCompleted);
 
         reportRepository.saveAndFlush(report);
         log.info(String.format("ReportService.createReport: entity %s saved", report));

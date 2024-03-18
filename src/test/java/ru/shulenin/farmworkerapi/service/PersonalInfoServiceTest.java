@@ -2,9 +2,11 @@ package ru.shulenin.farmworkerapi.service;
 
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.transaction.annotation.Transactional;
 import ru.shulenin.farmworkerapi.TestBase;
 import ru.shulenin.farmworkerapi.annotation.IntegrationTest;
+import ru.shulenin.farmworkerapi.controller.AuthRestController;
 import ru.shulenin.farmworkerapi.datasource.repository.PlanRepository;
 import ru.shulenin.farmworkerapi.datasource.repository.ScoreRepository;
 import ru.shulenin.farmworkerapi.dto.PlanReadDto;
@@ -32,7 +34,7 @@ class PersonalInfoServiceTest extends TestBase {
     private final WorkerMapper workerMapper = WorkerMapper.INSTANCE;
     private final ProductMapper productMapper = ProductMapper.INSTANCE;
 
-    private final static String EMAIL = "jack@mail.com";
+    private final static String EMAIL = "jhon@mail.com";
 
     @Test
     public void getScoreTest() {
@@ -54,7 +56,7 @@ class PersonalInfoServiceTest extends TestBase {
     @Test
     public void getPlansTest() {
         var plansFromService = personalInfoService.getPlans(EMAIL);
-        var planFromRepository = planRepository.findAllByWorkerEmail(EMAIL)
+        var planFromRepository = planRepository.findAllNotCompleted(EMAIL)
                 .stream()
                 .map(plan -> planMapper.planToPlanReadDto(plan, workerMapper, productMapper))
                 .toList();
@@ -64,6 +66,7 @@ class PersonalInfoServiceTest extends TestBase {
 
         assertThat(orderedPlansFromService).isNotEmpty();
         assertThat(orderedPlansFromRepository).isNotEmpty();
+        assertThat(orderedPlansFromService).hasSize(1);
         assertThat(orderedPlansFromService).isEqualTo(orderedPlansFromRepository);
     }
 }

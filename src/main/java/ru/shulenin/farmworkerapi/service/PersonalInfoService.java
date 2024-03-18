@@ -59,7 +59,7 @@ public class PersonalInfoService {
      * @return планы рабочего
      */
     public List<PlanReadDto> getPlans(String email) {
-        return planRepository.findAllByWorkerEmail(email)
+        return planRepository.findAllNotCompleted(email)
                 .stream()
                 .map(pln -> planMapper.planToPlanReadDto(pln, workerMapper, productMapper))
                 .toList();

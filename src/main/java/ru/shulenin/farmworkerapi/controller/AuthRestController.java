@@ -2,6 +2,7 @@ package ru.shulenin.farmworkerapi.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,8 @@ public class AuthRestController {
      * @return JWT токен
      */
     @PostMapping("/sign-in")
-    public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
+    public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request)
+            throws UsernameNotFoundException {
         return authenticationService.signIn(request);
     }
 }
